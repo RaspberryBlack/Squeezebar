@@ -1,0 +1,83 @@
+<?php
+/** 
+  * @file
+  * Implement Squeezebar
+  *  
+  * adjusted from http://blog.jobdeals.com/2011/12/free-hellobar-com-alternative-source-code/
+  */
+
+/** 
+  * Implementats hook_menu() 
+  */
+function squeezebar_menu() { 
+	$items['admin/config/user-interface/squeezebar'] = array(
+		'title' => 'Squeezebar', 
+		'description' => 'Adjust Squeezebar options.', 
+/*
+		'position' => 'right', 
+		'weight' => -5,
+*/ 
+		'page callback' => 'system_squeezebar_block_page', 
+		'access arguments' => array('administer squeezebar'), 
+	);
+	
+	$items['admin/config/user-interface/squeezebar'] = array( 
+		'title' => 'Squeezebar', 
+		'description' => 'Change how the Squeezebar behaves.', 
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('squeezebar_admin_settings'), 
+		'access arguments' => array('administer squeezebar'), 
+		'type' => MENU_NORMAL_ITEM, 
+		'file' => 'squeezebar.admin.inc',
+	);
+	
+	return $items;
+}
+
+
+/**
+  * Implements hook_page_alter()
+  */
+function squeezebar_page_alter(&$page) {
+	
+	global $user;
+	
+	drupal_add_library('system', 'effects');
+	drupal_add_js(array('squeezebar' => array(
+		'key' => 'value',
+	)), 'setting');
+	
+	$text = variable_get('squeezebar_text');
+	$linktext = variable_get('squeezebar_linktext');
+	$linktarget = base_path() . variable_get('squeezebar_linktarget');
+	$closetext = 'Close';
+	$opentext = 'Open';
+	
+	$markup = "
+		<div class='squeezebar' style='display:none'>
+			<span>$text <a class='squeezebar-link' href=$linktarget>$linktext</a></span>
+    		<a class='squeezebar-close'>$closetext</a>
+    	</div>
+    	<div class='squeezebar-stub' style='display:none'>
+    		<a class='squeezebar-open'>$opentext</a>
+    	</div>
+    ";
+
+	// Add squeezebar to page_bottom.
+	$page['page_bottom']['squeezebar'] = array(
+		'#weight' => -10, 
+		'#attached' => array(),
+		'#markup' => $markup,
+	);
+	
+	//attach css and js
+	$attached = &$page['page_bottom']['squeezebar']['#attached'];
+	$attached['js'][ drupal_get_path('module', 'squeezebar') . '/squeezebar.js' ] = array(
+		'every_page' => TRUE,
+		'scope' => 'footer',
+	);
+	
+	$attached['css'][ drupal_get_path('module', 'squeezebar') . '/squeezebar.css' ] = array(
+		'every_page' => TRUE,
+	);
+}
