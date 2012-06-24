@@ -46,24 +46,22 @@ function squeezebar_page_alter(&$page) {
 	drupal_add_css( drupal_get_path('module', 'squeezebar') . '/squeezebar.less', array('every_page' => TRUE) );
 	drupal_add_library('system', 'effects');
 	drupal_add_js(array('squeezebar' => array(
-		'key' => 'value',
+		'delay' => variable_get('squeezebar_delay'),
 	)), 'setting');
 	
 	$text = variable_get('squeezebar_text');
-/*
-	$linktext = variable_get('squeezebar_linktext');
-	$linktarget = base_path() . variable_get('squeezebar_linktarget');
-*/
 	$closetext = 'Close';
 	$opentext = 'Open';
 	
 	$markup = "
-		<div class='squeezebar' style='display:none'>
-			<span>$text</span>
-    		<a class='squeezebar-close'><span>$closetext</span></a>
-    	</div>
-    	<div class='squeezebar-stub' style='display:none'>
-    		<a class='squeezebar-open'><div class='button'></div><span>$opentext</span></a>
+		<div class='squeezebar-wrapper'>
+			<div class='squeezebar' style='display:none'>
+				<span>$text</span>
+	    		<a class='squeezebar-close' title='close notification'><span>$closetext</span></a>
+	    	</div>
+	    	<div class='squeezebar-stub' style='display:none'>
+	    		<a class='squeezebar-open' title='open notification'><div class='button'></div><span>$opentext</span></a>
+	    	</div>
     	</div>
     ";
 

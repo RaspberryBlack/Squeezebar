@@ -65,6 +65,15 @@ function squeezebar_admin_settings() {
 		'#size' => 60,
 		'#maxlength' => 64,
 	);
+	
+	$form['squeezebar_delay'] = array(	
+		'#type' => 'textfield',
+		'#title' => t('Initial Delay'),
+		'#description' => t('Time in Milliseconds.'),
+		'#default_value' => variable_get('squeezebar_delay', '2000'),
+		'#size' => 60,
+		'#maxlength' => 64,
+	);
 		
 	$form['#submit'][] = 'squeezebar_admin_settings_submit'; 
 	
