@@ -2,9 +2,11 @@ name = Squeezebar
 description = Free Hellobar alternative, code adjusted from <a href="http://blog.jobdeals.com/2011/12/free-hellobar-com-alternative-source-code/">Rob</a>
 core = 7.x
 
+dependencies[] = less
+
 files[] = squeezebar.admin.inc
 files[] = squeezebar.module 
 files[] = squeezebar.js 
-files[] = squeezebar.css
+files[] = squeezebar.less
 
 configure = admin/config/user-interface/squeezebar/settings

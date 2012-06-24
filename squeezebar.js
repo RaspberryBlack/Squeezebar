@@ -8,12 +8,12 @@
 	    if(stub_showing) {
 	     	$('.squeezebar-stub').slideUp('fast', function() {
 				$('.squeezebar').show(/* 'bounce', { times:3, distance:15 },*/ 100); 
-				$('body').animate({ "marginTop": "2.4em" }, 250);
+				$('body').animate({ "marginTop": "2.4em" }, 100);
 			}); 
 	    }
 	    else {
 	      	$('.squeezebar').show(/* 'bounce', { times:3, distance:15 },*/ 100); 
-	      	$('body').animate({"marginTop": "2.4em"}, 250);
+	      	$('body').animate({"marginTop": "2.4em"}, 100);
 	    }
 	}
 	
@@ -24,7 +24,7 @@
 	    }); 
 	
 	    if( $(window).width() > 1024 ) {
-	      	$('body').animate({"marginTop": "0px"}, 250); // if width greater than 1024 pull up the body
+	      	$('body').animate({"marginTop": "0px"}, 100); // if width greater than 1024 pull up the body
 	    }
 	}
 	
